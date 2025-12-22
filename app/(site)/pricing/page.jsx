@@ -336,13 +336,18 @@ export default function PricingPage() {
         </div>
 
         {/* Email Protection Section */}
-        <div className="w-full bg-white border border-gray-200 rounded-2xl p-8 mb-20 shadow-sm">
-          {/* Badge */}
-          <span className="inline-block bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full mb-6">
-            Best Value · Annual Only
-          </span>
+        <div className="relative w-full rounded-2xl border border-gray-200 bg-gradient-to-br from-green-50 via-white to-white p-8 mb-20 shadow-sm overflow-hidden">
+        
+        {/* Green glow */}
+        <div className="absolute -top-12 -left-12 h-40 w-40 bg-green-300/40 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+        {/* Badge */}
+        <span className="relative inline-block bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full mb-6">
+          Best Value · Annual Only
+        </span>
+
+        {/* Content */}
+        <div className="relative grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
             {/* Left */}
             <div>
               <h3 className="text-3xl font-bold text-gray-900 mb-3">
@@ -360,18 +365,17 @@ export default function PricingPage() {
 
             {/* Middle */}
             <div className="grid grid-cols-2 gap-y-3 text-sm text-gray-700">
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-green-500" /> Email scan detection
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-green-500" /> URL checker
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-green-500" /> Phishing alerts
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-green-500" /> SMS scanning
-              </div>
+              {[
+                'Email scan detection',
+                'URL checker',
+                'Phishing alerts',
+                'SMS scanning'
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-green-500" />
+                  {item}
+                </div>
+              ))}
             </div>
 
             {/* Right */}
@@ -387,6 +391,7 @@ export default function PricingPage() {
             </div>
           </div>
         </div>
+
 
 
         {/* Detailed Comparison */}
