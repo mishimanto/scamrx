@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { Check } from 'lucide-react';
+import { Check, Shield } from 'lucide-react';
 
 export default function PricingPage() {
   const [isAnnual, setIsAnnual] = useState(false);
@@ -25,7 +25,7 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center">
       {/* Main Content */}
-      <div className="flex flex-col items-center w-full max-w-7xl px-8 py-16">
+      <div className="flex flex-col items-center w-full px-40 py-16">
         {/* Title */}
         <h1 className="font-bold text-4xl text-gray-900 mb-6 text-center">
           Simple plans to protect you and your family
@@ -336,70 +336,131 @@ export default function PricingPage() {
         </div>
 
         {/* Email Protection Section */}
-        <div className="w-full bg-gray-50 rounded-2xl p-8 mb-12">
-          <div className="flex flex-col md:flex-row justify-between items-center">
+        <div className="w-full bg-white border border-gray-200 rounded-2xl p-8 mb-20 shadow-sm">
+          {/* Badge */}
+          <span className="inline-block bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full mb-6">
+            Best Value · Annual Only
+          </span>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+            {/* Left */}
             <div>
-              <h3 className="font-bold text-3xl text-gray-900 mb-2">Email Protection</h3>
-              <div className="flex items-baseline">
-                <span className="font-bold text-5xl text-blue-700">$19.95</span>
-                <span className="font-inter font-normal text-gray-600 ml-2">/year</span>
+              <h3 className="text-3xl font-bold text-gray-900 mb-3">
+                Email Protection
+              </h3>
+              <p className="text-gray-600 mb-4 max-w-sm">
+                Advanced email scam protection and real-time link scanning.
+              </p>
+
+              <div className="flex items-end gap-2">
+                <span className="text-4xl font-bold text-gray-900">$19.95</span>
+                <span className="text-gray-500">/year</span>
               </div>
-              {!isAnnual && (
-                <p className="text-gray-500 font-inter font-normal mt-1">
-                  (${(19.95/12).toFixed(2)}/month)
-                </p>
-              )}
             </div>
-            <button className="mt-4 md:mt-0 bg-blue-600 text-white py-3 px-8 rounded-lg font-inter font-semibold hover:bg-blue-700 transition-colors">
-              Add to Cart
-            </button>
+
+            {/* Middle */}
+            <div className="grid grid-cols-2 gap-y-3 text-sm text-gray-700">
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-green-500" /> Email scan detection
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-green-500" /> URL checker
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-green-500" /> Phishing alerts
+              </div>
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-green-500" /> SMS scanning
+              </div>
+            </div>
+
+            {/* Right */}
+            <div className="flex flex-col items-end gap-4">
+              <div className="text-sm text-gray-500 text-right">
+                <div>Scan limits: <span className="font-semibold text-gray-800">Unlimited</span></div>
+                <div>Max devices: <span className="font-semibold text-gray-800">Unlimited</span></div>
+              </div>
+
+              <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                Choose Plan
+              </button>
+            </div>
           </div>
+        </div>
+
+
+        {/* Detailed Comparison */}
+        <div className="w-full bg-white border border-gray-200 rounded-2xl p-8 mb-16 overflow-x-auto">
+          <h3 className="text-xl font-bold text-gray-900 mb-6">
+            Detailed Comparison
+          </h3>
+
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-gray-500 border-b">
+                <th className="text-left py-3">Feature</th>
+                <th>Email Protection</th>
+                <th>Individual</th>
+                <th>Family</th>
+                <th>Elder Assist</th>
+              </tr>
+            </thead>
+
+            <tbody className="text-center">
+              {[
+                ['Scan per month', '—', '50', '230', '500'],
+                ['Email scan protection', '✔', '✔', '✔', '✔'],
+                ['URL checker', '✔', '✔', '✔', '✔'],
+                ['Breach monitoring', '—', '✔', '✔', '✔'],
+                ['Family members', '—', '—', '5', '10'],
+                ['SMS scanning', '✔', '✔', '✔', '✔'],
+                ['Auto alerts', '—', '—', '✔', '✔'],
+                ['Weekly reports', '—', '—', '—', '✔'],
+                ['Priority support', '—', '✔', '✔', '✔'],
+              ].map(([feature, e, i, f, el], idx) => (
+                <tr key={idx} className="border-b last:border-none">
+                  <td className="text-left py-4 font-medium text-gray-700">
+                    {feature}
+                  </td>
+                  {[e, i, f, el].map((v, i2) => (
+                    <td key={i2} className="py-4">
+                      {v === '✔' ? (
+                        <Check className="mx-auto text-green-500 w-5 h-5" />
+                      ) : (
+                        <span className="text-gray-500">{v}</span>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
         {/* Risk-Free Trial */}
-        <div className="text-center">
-          <h2 className="font-bold text-4xl text-gray-900 mb-6">
+        <div className="w-full bg-blue-700 rounded-2xl py-10 px-6 text-center text-white">
+          {/* Logo Icon */}
+          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-blue-600">
+            <Shield size={40} />
+          </div>
+
+          <h2 className="text-3xl font-bold mb-3">
             Try ScamRX risk-free
           </h2>
-          <button className="bg-blue-600 text-white py-4 px-12 rounded-lg font-inter font-semibold text-xl hover:bg-blue-700 transition-colors">
-            Start Free Trial
-          </button>
-        </div>
-      </div>
+          <p className="text-blue-100 mb-8">
+            Get 30 free scans. No credit card required. Cancel anytime.
+          </p>
 
-      {/* Footer */}
-      <div className="w-full bg-white border-t border-gray-200 py-8 mt-auto">
-        <div className="flex flex-col items-center">
-          {/* Footer Navigation */}
-          <div className="flex flex-row justify-center items-center mb-6 space-x-8">
-            <Link href="/how-it-works" className="font-inter font-normal text-gray-600 hover:text-blue-700">
-              How it Works
-            </Link>
-            <Link href="/pricing" className="font-inter font-normal text-gray-600 hover:text-blue-700">
-              Pricing
-            </Link>
-            <Link href="/glossary" className="font-inter font-normal text-gray-600 hover:text-blue-700">
-              Glossary
-            </Link>
-            <Link href="/faq" className="font-inter font-normal text-gray-600 hover:text-blue-700">
-              FAQ
-            </Link>
-            <Link href="/privacy" className="font-inter font-normal text-gray-600 hover:text-blue-700">
-              Privacy
-            </Link>
-            <Link href="/terms" className="font-inter font-normal text-gray-600 hover:text-blue-700">
-              Terms
-            </Link>
-          </div>
-          
-          {/* Copyright */}
-          <div className="text-center">
-            <p className="font-inter font-normal text-gray-500">
-              © 2025 ScamRX, All rights reserved.
-            </p>
+          <div className="flex justify-center gap-4 flex-wrap">
+            <button className="bg-white text-blue-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100">
+              Get started free
+            </button>
+            <button className="border border-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600">
+              View FAQ
+            </button>
           </div>
         </div>
-      </div>
+      </div>    
     </div>
   );
 }
